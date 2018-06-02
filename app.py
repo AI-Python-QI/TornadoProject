@@ -5,7 +5,7 @@ from tornado.options import define,options
 
 from handlers import main
 
-define('port',default='8000',help='Listening port ',type=int)
+define('port',default='8080',help='Listening port ',type=int)
 
 class Application(tornado.web.Application):
     '''
