@@ -3,5 +3,7 @@
 {% block title %}Explore{% end %}
 
 {% block content %}
-welcome to Explore html!
+    {% for i in range(1,5) %}
+    <img src="{{ static_url('images/{}.jpg'.format(i)) }}" width="400">
+    {% end %}
 {% end %}

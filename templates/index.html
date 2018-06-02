@@ -3,11 +3,11 @@
 {% block title %}Index{% end %}
 
 
-{% block contents %}
+{% block content %}
 
-{% for i in range(1,5) %}
-<img src="{{ static_url('images/{}.jpg'.format(i)) }}" alt="">
-
+    {% for i in range(1,5) %}
+    <img src="{{ static_url('images/{}.jpg'.format(i)) }}" width="800">
+    {% end %}
 
 {% end %}
 

@@ -4,6 +4,7 @@
 
 {% block content %}
 
-this page is post  {{ post_id }}  page
+    <img src="{{ static_url('images/{}.jpg'.format(post_id)) }}" width="1125">
+
 
 {% end %}
