@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload{% end %}
+
+{% block content %}
+<div class="id" style="text-align:center">
+    <form action="/upload" enctype="multipart/form-data"
+      method="post">
+        <input type="file"name="newing">
+        <input type="submit">
+    </form>
+</div>
+
+{% end %}
