@@ -3,7 +3,7 @@
 {% block title %}Explore{% end %}
 
 {% block content %}
-    {% for i in range(1,5) %}
-    <img src="{{ static_url('images/{}.jpg'.format(i)) }}" width="400">
+    {% for i in thumb_images %}
+    <img src="{{ i }}" width="400">
     {% end %}
 {% end %}

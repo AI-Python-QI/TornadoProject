@@ -1,3 +1,4 @@
+import os
 import tornado.ioloop
 import  tornado.options
 import tornado.web
@@ -16,12 +17,14 @@ class Application(tornado.web.Application):
             (r'/',main.IndexHandler),
             (r'/explore',main.ExploreHandler),
             (r'/post/(?P<post_id>[0-9]+)',main.PostHandler),
+            (r'/upload',main.UploadHanlder),
 
         ]
         settings = dict(
             debug = True,
             template_path = 'templates',
-            static_path = 'static'
+            #static_path = 'static'
+            static_path = os.path.join(os.path.dirname(__file__),'static')
         )
         super(Application, self).__init__(handlers,**settings)
 
