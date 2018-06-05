@@ -6,15 +6,18 @@ from utils import photo
 class IndexHandler(tornado.web.RequestHandler):
     ''' 网页家目录 index.html'''
     def get(self,*args,**kwargs):
-        images_path = os.path.join(self.settings.get('static_path'),'upload')
-        images = photo.get_images(images_path)
-        self.render('index.html',images = images)
+        #images_path = os.path.join(self.settings.get('static_path'),'upload')
+        #images = photo.get_images(images_path)
+        image_urls = photo.get_images('./static/upload/images')
+        self.render('index.html',images = image_urls)
 
 
 class ExploreHandler(tornado.web.RequestHandler):
     ''' explore.html'''
     def get(self,*args,**kwargs):
-        thumb_images = photo.get_images()
+
+
+        thumb_images = photo.get_images('./static/upload/thumb_images/')
         self.render('explore.html',images=thumb_images)
 
 class PostHandler(tornado.web.RequestHandler):
@@ -38,8 +41,11 @@ class UploadHanlder(tornado.web.RequestHandler):
             for img_file in img_files:
                 with open ('./static/upload/images/'+img_file['filename'],'wb') as f:
                     f.write(img_file['body'])
+                photo.make_thumb('./static/upload/images/'+img_file['filename'])
+
         else:
             self.write('不好意思，发生错误辣！')
         self.write({'msg':'got file :{}'.format(img_files[0]['filename'])})
         self.write('恭喜您，完成提交！')
+        self.redirect('explore')
 

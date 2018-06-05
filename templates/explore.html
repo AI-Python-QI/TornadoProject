@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}Explore{% end %}
+{% block style %}
+   {{ div{
+        width:300px;
+
+}}
 
 {% block content %}
-    {% for i in thumb_images %}
-    <img src="{{ i }}" width="400">
+    <div >
+
+
+    </div>
+    {% for i in images%}
+    <img src="{{ i }}" >
     {% end %}
 {% end %}
