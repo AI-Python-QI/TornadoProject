@@ -4,7 +4,7 @@ import  tornado.options
 import tornado.web
 from tornado.options import define,options
 
-from handlers import main
+from handlers import main,auth
 
 define('port',default='8080',help='Listening port ',type=int)
 
@@ -18,13 +18,32 @@ class Application(tornado.web.Application):
             (r'/explore',main.ExploreHandler),
             (r'/post/(?P<post_id>[0-9]+)',main.PostHandler),
             (r'/upload',main.UploadHanlder),
+            (r'/login',auth.LoginHandler),
+            (r'/logout',auth.LoginHandler),
+            (r'/signup',auth.SignupHandler),
+            (r'/indexx',main.IndexxHandler),
 
         ]
         settings = dict(
             debug = True,
             template_path = 'templates',
             #static_path = 'static'
-            static_path = os.path.join(os.path.dirname(__file__),'static')
+            login_url = '/login',
+            static_path = os.path.join(os.path.dirname(__file__),'static'),
+            cookie_secret = '1235429845dasdf',
+            pycket ={
+                'engine':'redis',
+                'storage':{
+                    'host':'192.168.31.128',
+                    'port':6379,
+                    'db_sessions':5,
+                    'db_notifications':11,
+                    'max_connections':2**31,
+                },
+                'cookies':{
+                    'expires_days':30,
+                },
+            }
         )
         super(Application, self).__init__(handlers,**settings)
 

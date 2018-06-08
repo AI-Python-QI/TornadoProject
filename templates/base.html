@@ -3,14 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Tornado{% end %}</title>
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+
+        }
+
+        div{
+            position: relative;
+
+
+        }
+
+    </style>
 </head>
 <body>
+<div  class="div1" style="width:auto;text-align: center;">
+    {% block content %}I am  base.html{% end %}
 
-{% block content %}
+</div>
 
-I am  base.html
+<div  class="div2" style="width: 100px;">
+     <button><a href="/logout">登出</a></button>
+</div>
 
-{% end %}
 
 </body>
 </html>

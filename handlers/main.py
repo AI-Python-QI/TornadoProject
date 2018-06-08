@@ -1,10 +1,17 @@
 import tornado.web
 import os
+from pycket.session import SessionMixin
 
 from utils import photo
 
-class IndexHandler(tornado.web.RequestHandler):
+class AuthBaseHandler(tornado.web.RequestHandler,SessionMixin):
+
+    def get_current_user(self):
+        return self.session.get('tudo_user_info')
+
+class IndexHandler(AuthBaseHandler):
     ''' 网页家目录 index.html'''
+    @tornado.web.authenticated
     def get(self,*args,**kwargs):
         #images_path = os.path.join(self.settings.get('static_path'),'upload')
         #images = photo.get_images(images_path)
@@ -12,7 +19,7 @@ class IndexHandler(tornado.web.RequestHandler):
         self.render('index.html',images = image_urls)
 
 
-class ExploreHandler(tornado.web.RequestHandler):
+class ExploreHandler(AuthBaseHandler):
     ''' explore.html'''
     def get(self,*args,**kwargs):
 
@@ -20,7 +27,7 @@ class ExploreHandler(tornado.web.RequestHandler):
         thumb_images = photo.get_images('./static/upload/thumb_images/')
         self.render('explore.html',images=thumb_images)
 
-class PostHandler(tornado.web.RequestHandler):
+class PostHandler(AuthBaseHandler):
     ''' post  照片详情页'''
     #def get(self,*args,**kwargs):
         #self.render('post.html',post_id=kwargs['post_id'])
@@ -29,7 +36,7 @@ class PostHandler(tornado.web.RequestHandler):
         self.render('post.html',post_id=post_id)
 
 
-class UploadHanlder(tornado.web.RequestHandler):
+class UploadHanlder(AuthBaseHandler):
     '''接收图片文件上传'''
 
     def get(self,*args,**kwargs):
@@ -49,3 +56,13 @@ class UploadHanlder(tornado.web.RequestHandler):
         self.write('恭喜您，完成提交！')
         self.redirect('explore')
 
+class LogoutHandler(AuthBaseHandler):
+
+    def get(self,*args,**kwargs):
+        self.session.set('tudo_user_info','')
+        self.redirect('/login')
+
+class IndexxHandler(AuthBaseHandler):
+
+    def get(self):
+        self.render('indexx.html')
