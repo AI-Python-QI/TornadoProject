@@ -52,7 +52,7 @@ class User(Base):
 class Post(Base):
     '''图片地址存储信息'''
 
-    __tablename__ = 'post'
+    __tablename__ = 'posts'
 
     id  = Column(Integer,primary_key=True,autoincrement=True)
     '''自增长的id值'''
