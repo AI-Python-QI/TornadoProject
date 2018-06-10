@@ -6,6 +6,8 @@ from sqlalchemy.orm import  sessionmaker
 
 
 
+'''连接数据库的函数'''
+
 HOST = '192.168.31.128'
 PORT = '3306'
 DATABASE = 'mydb'
@@ -20,3 +22,6 @@ DB_URL = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(
 engine = create_engine(DB_URL)
 DBSession = sessionmaker(bind=engine)
 Base = declarative_base(engine)
+
+
+

@@ -21,6 +21,8 @@ class IndexHandler(AuthBaseHandler):
 
 class ExploreHandler(AuthBaseHandler):
     ''' explore.html'''
+
+    @tornado.web.authenticated
     def get(self,*args,**kwargs):
 
 
@@ -56,13 +58,5 @@ class UploadHanlder(AuthBaseHandler):
         self.write('恭喜您，完成提交！')
         self.redirect('explore')
 
-class LogoutHandler(AuthBaseHandler):
 
-    def get(self,*args,**kwargs):
-        self.session.set('tudo_user_info','')
-        self.redirect('/login')
 
-class IndexxHandler(AuthBaseHandler):
-
-    def get(self):
-        self.render('indexx.html')
