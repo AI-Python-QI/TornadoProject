@@ -1,6 +1,7 @@
 from datetime import datetime
-from sqlalchemy import (Column,Integer,String,DateTime)
+from sqlalchemy import (Column,Integer,String,DateTime,ForeignKey)
 from sqlalchemy.sql import exists
+from sqlalchemy.orm import relationship
 
 from models.db import Base,DBSession
 
@@ -47,6 +48,20 @@ class User(Base):
             return user.password
         else:
             return ''
+
+class Post(Base):
+    '''图片地址存储信息'''
+
+    __tablename__ = 'post'
+
+    id  = Column(Integer,primary_key=True,autoincrement=True)
+    '''自增长的id值'''
+    image_url = Column(String(50))
+    user_id = Column(Integer,ForeignKey('users.id'))
+    user = relationship('users',backref='img-posts',cascade='all' ,uselist=False)
+
+    def __repr__(self):
+        return '<Post(#{}:{})>'.format(self.image_url, self.id)
 
 
 
