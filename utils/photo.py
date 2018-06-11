@@ -43,12 +43,12 @@ class ImageSave(object):
 
 
     @property
-    def upload_url(self):
-        return os.path.join(self.upload_dir, self.name)  # uploads/*jpg     (用于保存数据库是用的路径)
+    def upload_url(self):  #给web服务器的路径 保存的是相对路径
+        return os.path.join(self.upload_dir, self.name)  # uploads/images/*jpg     (用于保存数据库是用的路径)
 
     @property
-    def upload_path(self):
-        return os.path.join(self.static_path, self.upload_url)  # static/uploads/*.jpg
+    def upload_path(self):# 给文件系统的路径，保存的是文件的绝对路径
+        return os.path.join(self.static_path, self.upload_url)  # static/uploads/images/*.jpg
 
     def save_upload(self, content):
         with open(self.upload_path, 'wb') as f:
@@ -58,7 +58,7 @@ class ImageSave(object):
     def thumb_url(self):
         base, _ = os.path.splitext(self.name)
         thumb_name = '{}_{}x{}.jpg'.format(base, self.size[0], self.size[1])
-        return os.path.join(self.upload_dir, self.thumb_dir, thumb_name)  # uploads/thumbnails_200x200/{}_{}_{}.jpg
+        return os.path.join(self.upload_dir, self.thumb_dir, thumb_name)  # uploads/images/thumbnails_200x200/{}_{}_{}.jpg
 
     def make_thumb(self):
         im = Image.open(self.upload_path)

@@ -29,7 +29,7 @@ class ExploreHandler(AuthBaseHandler):
     def get(self,*args,**kwargs):
 
 
-        thumb_images = photo.get_images('./static/upload/thumb_images/')
+        thumb_images = photo.get_images('./static/upload/images/thumb_images/')
         self.render('explore.html',images=thumb_images)
 
 class PostHandler(AuthBaseHandler):
