@@ -41,31 +41,6 @@ class PostHandler(AuthBaseHandler):
         self.render('post.html',post_id=post_id)
 
 
-#class cUploadHanlder(AuthBaseHandler):
-    #'''接收图片文件上传'''
-
-    # def get(self,*args,**kwargs):
-    #     self.render('upload.html')
-
-    # def post(self,*args,**kwargs):
-    #     img_files = self.request.files.get('newing',None)
-    #     # if img_files:
-    #     #     for img_file in img_files:
-    #     #         with open ('./static/upload/images/'+img_file['filename'],'wb') as f:
-    #     #             f.write(img_file['body'])
-    #     #         photo.make_thumb('./static/upload/images/'+img_file['filename'])
-    #     #
-    #     # else:
-    #     #     self.write('不好意思，发生错误辣！')
-    #     #
-    #     for img in img_files:
-    #         base_name = 'uplodas/'+img['filename']
-    #         save_to = os.path.join(self.settings['static_path'],base_name)
-    #         print('save_to {}'.format(save_to))
-    #         with open (save_to,'wb')as f:
-    #             f.write(img['body'])
-    #             photo.make_thumb(save_to)
-    #             add_post_for(self.current_user,base_name)
 class UploadHandler(AuthBaseHandler):
 
     @tornado.web.authenticated

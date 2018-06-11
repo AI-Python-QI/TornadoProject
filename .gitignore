@@ -1,3 +1,6 @@
 .idea/
 
 
+static/upload/images/111.png
+*.jpg
+*.png
