@@ -2,7 +2,7 @@ import hashlib
 from datetime import datetime
 
 
-from models.account import User,session
+from models.account import User,session,Post
 
 
 
@@ -46,3 +46,17 @@ def register(username,password,email):
     User.add_user(username,hash_pass,email)
     return {'msg':'ok'}
 
+
+def add_post_for(username, image_url, thumb_url):
+    '''保存图片对应的用户信息和存储信息'''
+    user = session.query(User).filter_by(name=username).first()
+    post = Post(image_url=image_url, user=user, thumb_url=thumb_url)
+    session.add(post)
+    session.commit()
+    return post.id
+
+
+def get_post_for(username):
+    user = session.query(User).filter_by(name=username).first()
+    posts = session.query(Post).filter_by(user=user)
+    return posts

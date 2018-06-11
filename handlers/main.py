@@ -3,6 +3,9 @@ import os
 from pycket.session import SessionMixin
 
 from utils import photo
+from utils.account import add_post_for,get_post_for
+
+
 
 class AuthBaseHandler(tornado.web.RequestHandler,SessionMixin):
 
@@ -38,23 +41,52 @@ class PostHandler(AuthBaseHandler):
         self.render('post.html',post_id=post_id)
 
 
-class UploadHanlder(AuthBaseHandler):
-    '''接收图片文件上传'''
+#class cUploadHanlder(AuthBaseHandler):
+    #'''接收图片文件上传'''
 
-    def get(self,*args,**kwargs):
+    # def get(self,*args,**kwargs):
+    #     self.render('upload.html')
+
+    # def post(self,*args,**kwargs):
+    #     img_files = self.request.files.get('newing',None)
+    #     # if img_files:
+    #     #     for img_file in img_files:
+    #     #         with open ('./static/upload/images/'+img_file['filename'],'wb') as f:
+    #     #             f.write(img_file['body'])
+    #     #         photo.make_thumb('./static/upload/images/'+img_file['filename'])
+    #     #
+    #     # else:
+    #     #     self.write('不好意思，发生错误辣！')
+    #     #
+    #     for img in img_files:
+    #         base_name = 'uplodas/'+img['filename']
+    #         save_to = os.path.join(self.settings['static_path'],base_name)
+    #         print('save_to {}'.format(save_to))
+    #         with open (save_to,'wb')as f:
+    #             f.write(img['body'])
+    #             photo.make_thumb(save_to)
+    #             add_post_for(self.current_user,base_name)
+class UploadHandler(AuthBaseHandler):
+
+    @tornado.web.authenticated
+    def get(self, *args, **kwargs):
+        next = self.get_argument('next', '')
+        self.render('upload.html', next=next)
+
+    def post(self, *args, **kwargs):
+        img_files = self.request.files.get('newing', None)
+        for img in img_files:
+            saver = photo.ImageSave(self.settings['static_path'], img['filename'])
+            saver.save_upload(img['body'])
+            saver.make_thumb()
+
+            add_post_for(self.current_user, saver.upload_url, saver.thumb_url)
+            print('save to {}'.format(saver.upload_path))
+            self.redirect('/')
+
         self.render('upload.html')
 
-    def post(self,*args,**kwargs):
-        img_files = self.request.files.get('newing',None)
-        if img_files:
-            for img_file in img_files:
-                with open ('./static/upload/images/'+img_file['filename'],'wb') as f:
-                    f.write(img_file['body'])
-                photo.make_thumb('./static/upload/images/'+img_file['filename'])
-
-        else:
-            self.write('不好意思，发生错误辣！')
-        self.write({'msg':'got file :{}'.format(img_files[0]['filename'])})
+        # self.write({'msg':'got file :{}'.format(img_files[0]['filename'])})
         self.write('恭喜您，完成提交！')
         self.redirect('explore')
 

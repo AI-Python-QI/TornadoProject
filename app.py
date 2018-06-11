@@ -17,7 +17,7 @@ class Application(tornado.web.Application):
             (r'/',main.IndexHandler),
             (r'/explore',main.ExploreHandler),
             (r'/post/(?P<post_id>[0-9]+)',main.PostHandler),
-            (r'/upload',main.UploadHanlder),
+            (r'/upload',main.UploadHandler),
             (r'/login',auth.LoginHandler),
             (r'/logout',auth.LogoutHandler),
             (r'/signup',auth.SignupHandler),
@@ -27,9 +27,9 @@ class Application(tornado.web.Application):
         settings = dict(
             debug = True,
             template_path = 'templates',
-            #static_path = 'static'
+            static_path = 'static',
             login_url = '/login',
-            static_path = os.path.join(os.path.dirname(__file__),'static'),
+            #static_path = os.path.join(os.path.dirname(__file__),'static'),
             cookie_secret = '1235429845dasdf',
             pycket ={
                 'engine':'redis',
