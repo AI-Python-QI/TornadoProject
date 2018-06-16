@@ -4,9 +4,10 @@
 
 {% block content %}
 
-<div class="">
-
-    <div class="">
+<div class="row">
+    <div class="col-sm-2"></div>
+    
+    <div style="width: auto; text-align: center;" class="col-sm-6">
         <form action="/login?next{{ next }}"method="post"enctpye="multipart/form-data">
             <div class="form-group">
                 Username
@@ -19,12 +20,9 @@
                        name="password"  type="password" required="">
             </div>
 
-            <button class="">Login</button>
-            <button action="/logout">退出</button>
+            <button class="btn btn-danger">Login</button>
 
-            <div class="">
-                还没有账号？<button class=""><a href="/signup">注册</a></button>一个吧！
-            </div>
+
 
 
 
