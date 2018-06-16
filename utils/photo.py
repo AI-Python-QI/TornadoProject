@@ -1,7 +1,8 @@
 import glob
 from PIL import Image
 import os
-from models.account import Post
+
+from models.account import User,session,Post
 
 
 def get_images(path):
@@ -64,6 +65,14 @@ class ImageSave(object):
         im = Image.open(self.upload_path)
         im.thumbnail(self.size)
         im.save(os.path.join(self.static_path, self.thumb_url), 'JPEG')
+
+    def get_post(post_id):
+        """
+        通过数据库查询 照片的id，然后可以通过点击图片查看详细图片
+        :return:
+        """
+        post = session.query(Post).get(post_id)
+        return post
 
 
 

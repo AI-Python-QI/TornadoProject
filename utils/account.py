@@ -57,6 +57,11 @@ def add_post_for(username, image_url, thumb_url):
 
 
 def get_post_for(username):
+    """
+    查询 数据库中的用户名 和 posts
+    :param username:
+    :return:
+    """
     user = session.query(User).filter_by(name=username).first()
     posts = session.query(Post).filter_by(user=user)
     return posts

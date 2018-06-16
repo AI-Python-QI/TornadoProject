@@ -60,6 +60,7 @@ class Post(Base):
     thumb_url = Column(String(50))
     user_id = Column(Integer,ForeignKey('users.id'))
     user = relationship('User',backref='posts',cascade='all' ,uselist=False)
+   # created = Column(datetime,default=datetime.now)
 
     def __repr__(self):
         return '<Post(#{}:{})>'.format(self.image_url, self.id)

@@ -21,6 +21,7 @@ class Application(tornado.web.Application):
             (r'/login',auth.LoginHandler),
             (r'/logout',auth.LogoutHandler),
             (r'/signup',auth.SignupHandler),
+            (r'/mysave',main.MysaveHandler),
 
 
         ]

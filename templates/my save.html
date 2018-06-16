@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Explore{% end %}
+{% block style %}
+
+{% end %}
+
+{% block content %}
+
+    {% for p in posts %}
+    <a href="/post/{{ p.id }}">
+        <img src="{{ static_url(p.image_url) }}" width="200" >
+    </a>
+    {% end %}
+
+
+
+
+
+
+{% end %}

@@ -3,8 +3,15 @@
 {% block title %}Post{% end %}
 
 {% block content %}
+    <div class="row justify-center-center">
+        <div class="col-12 col-sm-10">
+            <img src="{{ static_url(post.image_url) }}" width="1110" >
+            <h7>上传用户：{{ post.user.name }}</h7>
 
-    <img src="{{ static_url('images/{}.jpg'.format(post_id)) }}" width="1125">
+            </div>
 
 
+
+{# post.image_url 是posts表中的一列 但是class 名字是post 所以通过post调用#}
+        </div>
 {% end %}
