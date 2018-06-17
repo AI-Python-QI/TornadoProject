@@ -6,7 +6,7 @@
     <div class="row justify-center-center">
         <div class="col-12 col-sm-10">
             <img src="{{ static_url(post.image_url) }}" width="1110" >
-            <h7>上传用户：{{ post.user.name }}</h7>
+            <h7>上传用户：{{ post.user.name }}   上传时间：{{ post.created or None }}</h7>
 
             </div>
 

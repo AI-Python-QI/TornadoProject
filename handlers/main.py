@@ -3,8 +3,8 @@ import os
 from pycket.session import SessionMixin
 
 from utils import photo
-from utils.account import add_post_for,get_post_for
-from utils.photo import ImageSave
+from utils.account import add_post_for,get_post_for,get_all_posts,get_post
+
 
 
 
@@ -20,7 +20,7 @@ class IndexHandler(AuthBaseHandler):
         #images_path = os.path.join(self.settings.get('static_path'),'upload')
         #images = photo.get_images(images_path)
         #image_urls = photo.get_images('./static/upload/images')
-        posts = get_post_for(self.current_user)
+        posts = get_all_posts()
         self.render('index.html',posts=posts)#posts已经通过该定义闯入到index.html页面了，网页需要什么变量都需要这么传递
         #例如 拿到 ！！！static_url handler 这些变量不需要传递，会自动传递到这里，可以直接调用
 
@@ -33,8 +33,8 @@ class ExploreHandler(AuthBaseHandler):
 
 
         thumb_images = photo.get_images('./static/upload/images/thumb_images/')
-        #posts = get_post_for(self.current_user)
-        self.render('explore.html',images=thumb_images)
+        posts = get_all_posts()
+        self.render('explore.html',posts=posts)
 
 class MysaveHandler(AuthBaseHandler):
     '''我的收藏页面'''
@@ -51,7 +51,7 @@ class PostHandler(AuthBaseHandler):
         #self.render('post.html',post_id=kwargs['post_id'])
         #self.render('post.html',post_id=post_id)
     def get(self,post_id):
-        post = ImageSave.get_post(int(post_id))
+        post = get_post(int(post_id))
         self.render('post.html',post=post)# 为什么这么定义呢？因为 post_id 已经传入到了 post.html了 向网页内传递变量的方式
 
 

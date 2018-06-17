@@ -56,11 +56,11 @@ class Post(Base):
 
     id  = Column(Integer,primary_key=True,autoincrement=True)
     '''自增长的id值'''
-    image_url = Column(String(50))
-    thumb_url = Column(String(50))
+    image_url = Column(String(90))
+    thumb_url = Column(String(90))
     user_id = Column(Integer,ForeignKey('users.id'))
     user = relationship('User',backref='posts',cascade='all' ,uselist=False)
-   # created = Column(datetime,default=datetime.now)
+    created = Column(DateTime,default=datetime.now)
 
     def __repr__(self):
         return '<Post(#{}:{})>'.format(self.image_url, self.id)

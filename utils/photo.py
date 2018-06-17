@@ -1,4 +1,4 @@
-import glob
+import glob,uuid
 from PIL import Image
 import os
 
@@ -33,19 +33,28 @@ class ImageSave(object):
     thumb_dir = 'thumb_images'
     size = (200, 200)
 
-    def __init__(self, static_path, name):
+    def __init__(self, static_path, old_name):
         '''
         记录保存图片的路径
         :param static_path: app settings static_path (图片保存服务器的路径)
         :param name: 图片名字
         '''
         self.static_path = static_path
-        self.name = name
+        self.old_name = old_name
+        self.new_name = self.gen_name()
+
+    def gen_name(self):
+        '''
+        生成随记字符串的文件名 并 加上后缀名
+        :return:
+        '''
+        _,ext = os.path.splitext(self.old_name)
+        return uuid.uuid4().hex +ext
 
 
     @property
     def upload_url(self):  #给web服务器的路径 保存的是相对路径
-        return os.path.join(self.upload_dir, self.name)  # uploads/images/*jpg     (用于保存数据库是用的路径)
+        return os.path.join(self.upload_dir, self.new_name)  # uploads/images/*jpg     (用于保存数据库是用的路径)
 
     @property
     def upload_path(self):# 给文件系统的路径，保存的是文件的绝对路径
@@ -57,7 +66,7 @@ class ImageSave(object):
 
     @property
     def thumb_url(self):
-        base, _ = os.path.splitext(self.name)
+        base, _ = os.path.splitext(self.new_name)
         thumb_name = '{}_{}x{}.jpg'.format(base, self.size[0], self.size[1])
         return os.path.join(self.upload_dir, self.thumb_dir, thumb_name)  # uploads/images/thumbnails_200x200/{}_{}_{}.jpg
 
@@ -65,16 +74,6 @@ class ImageSave(object):
         im = Image.open(self.upload_path)
         im.thumbnail(self.size)
         im.save(os.path.join(self.static_path, self.thumb_url), 'JPEG')
-
-    def get_post(post_id):
-        """
-        通过数据库查询 照片的id，然后可以通过点击图片查看详细图片
-        :return:
-        """
-        post = session.query(Post).get(post_id)
-        return post
-
-
 
 
 

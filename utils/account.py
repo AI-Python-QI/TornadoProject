@@ -58,10 +58,26 @@ def add_post_for(username, image_url, thumb_url):
 
 def get_post_for(username):
     """
-    查询 数据库中的用户名 和 posts
+    查询 数据库中的用户名 和 posts中的用户名
     :param username:
     :return:
     """
     user = session.query(User).filter_by(name=username).first()
     posts = session.query(Post).filter_by(user=user)
+    return user.posts
+def get_post(post_id):
+    """
+    通过数据库查询 照片的id，然后可以通过点击图片查看详细图片
+    :return:
+    """
+    posts = session.query(Post).get(post_id)
     return posts
+
+def get_all_posts():
+    '''
+    得到所有的图片给 explore 页面，并进行降序排序
+    :return:
+    '''
+    posts = session.query(Post).order_by(Post.id.desc()).all()
+    return posts
+

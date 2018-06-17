@@ -9,7 +9,7 @@
          {% for p in posts %}
     <a href="/post/{{ p.id }}">
         <img src="{{ static_url(p.image_url) }}" width="400">
-        <figcaption class="figure-caption"> upload by {{ p.user.name }}
+        <figcaption class="figure-caption"> upload by {{ p.user.name  }} 上传时间：{{ p.created or None }}
 
         </figcaption>
     </a>

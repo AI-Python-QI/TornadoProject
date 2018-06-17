@@ -3,6 +3,8 @@
 {% block title %}signup{% end %}
 
 {% block content %}
+<div class="row">
+<div class="col-sm-2"></div>
 
 <div class="col-sm-6" style="text-align: center;">
     {% if msg %}
@@ -42,7 +44,7 @@
 
         <button class="btn btn-default">注册</button>
         <div class="text-center help-text">
-            已经有账号请 <a  href="/login">登陆</a>
+            已经有账号请 <a class="btn btn-danger" href="/login">登陆</a>
 
         </div>
 
@@ -50,4 +52,5 @@
     </form>
 
 </div>
+    </div>
 {% end %}
