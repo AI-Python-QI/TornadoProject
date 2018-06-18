@@ -15,11 +15,11 @@ class User(Base):
     __tablename__ = 'users'
 
     id =Column(Integer, primary_key=True,autoincrement=True)
-    name = Column(String(50),unique=True,nullable=False)
-    password = Column(String(50),nullable=False)
+    name = Column(String(150),unique=True,nullable=False)
+    password = Column(String(150),nullable=False)
     created = Column(DateTime,default=datetime.now)
     '''此处的datetiem.now 为什么不需要执行，因为是传这个参数进去'''
-    email = Column(String(50))
+    email = Column(String(150))
     last_login = Column(DateTime)
 
 
@@ -56,8 +56,8 @@ class Post(Base):
 
     id  = Column(Integer,primary_key=True,autoincrement=True)
     '''自增长的id值'''
-    image_url = Column(String(90))
-    thumb_url = Column(String(90))
+    image_url = Column(String(150))
+    thumb_url = Column(String(150))
     user_id = Column(Integer,ForeignKey('users.id'))
     user = relationship('User',backref='posts',cascade='all' ,uselist=False)
     created = Column(DateTime,default=datetime.now)

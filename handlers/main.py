@@ -32,17 +32,20 @@ class ExploreHandler(AuthBaseHandler):
     def get(self,*args,**kwargs):
 
 
-        thumb_images = photo.get_images('./static/upload/images/thumb_images/')
+        #thumb_images = photo.get_images('./static/upload/images/thumb_images/')
         posts = get_all_posts()
+        #posts = get_post_for(self.current_user)
         self.render('explore.html',posts=posts)
 
 class MysaveHandler(AuthBaseHandler):
     '''我的收藏页面'''
     @tornado.web.authenticated
     def get(self):
-
+        #thumb_images = photo.get_images('./static/upload/images/')
         posts =get_post_for(self.current_user)
-        self.render('my save.html',posts=posts)
+        #这个定义为什么要这样子？ 通过self.current_user 这个是拿到的用户名 ，这个用户名传递给了 get_post_for
+        #这个定义的函数，这个函数会进行调用查询，返回 user ,然后通过user.post 调用 post数据库
+        self.render('my save.html',posts= posts)
 
 
 class PostHandler(AuthBaseHandler):

@@ -22,65 +22,64 @@
 <div  class="container" style="width:auto;text-align: center;">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/login"><i class="fa fa-camera"></i>   小美女们~</a>
+  <a class="navbar-brand" href="/login"><i class="fa fa-camera"></i>   美女们~</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+
+
       <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/"> <i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
+        <span class="sr-only">Loading...</span>Home <span class="sr-only">(current)</span></a>
       </li>
+
+
       <li class="nav-item">
-        <a class="nav-link" href="/explore">发现</a>
+        <a class="nav-link" href="/explore"><i class="fa fa-send-o"></i>&nbsp发现</a>
       </li>
 
          <li class="nav-item">
-        <a class="nav-link" href="/mysave">收藏</a>
+        <a class="nav-link" href="/mysave"><i class="fa fa-cloud"></i>&nbsp收藏</a>
       </li>
 
           <li class="nav-item">
-        <a class="nav-link" href="/signup">注册</a>
-      </li>
-
-
-         <li class="nav-item">
-
-        <a class="nav-link" href="/logout" >{{ handler.current_user }} 注销</a>
+        <a class="nav-link" href="/signup"> <i class="fa fa-qq"></i>&nbsp注册</a>
       </li>
 
 
 
+         <form action="/login" class="form-inline my-2 my-lg-0">
+
+            <button class="btn btn-primary my-2 my-sm-0" type="submit"> <i class="fa fa-apple"> </i> 登陆</button>
+         </form>   &nbsp   &nbsp
 
 
+
+            <form action="/upload" class="form-inline my-2 my-lg-0">
+                <button class="btn btn-danger my-2 my-sm-0" type="submit"> <i class="fa fa-upload"> </i> 上传</button>
+            </form>
 
 
 
     </ul>
-    <form action="/upload" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-danger my-2 my-sm-0" type="submit"> <i class="fa fa-upload"> </i> 上传</button>
-    </form>
+
+         <form action="/logout" class="form-inline my-2 my-lg-0">
+
+            <button class="btn btn-Success my-2 my-sm-0" type="submit"> <i class="fa fa-sign-out"> </i> {{ handler.current_user }}&nbsp注销</button>
+         </form>
 
 
 
-
-  </div>
+    </div>
 </nav>
 
-
-
-
-
-    <div style="">
-        {% block content %}I am  base.html{% end %}
-    </div>
-
-
+                <div style="">
+                    {% block content %}I am  base.html{% end %}
+                </div>
 </div>
-
-
 
 </body>
 </html>
