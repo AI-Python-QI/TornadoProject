@@ -4,8 +4,7 @@ import  tornado.options
 import tornado.web
 from tornado.options import define,options
 
-from handlers import main,auth
-
+from handlers import main,auth,chat,service
 define('port',default='8080',help='Listening port ',type=int)
 
 class Application(tornado.web.Application):
@@ -22,6 +21,11 @@ class Application(tornado.web.Application):
             (r'/logout',auth.LogoutHandler),
             (r'/signup',auth.SignupHandler),
             (r'/mysave',main.MysaveHandler),
+            (r'/room',chat.RoomHandler),
+            (r'/ws',chat.ChatSocketHandler),
+            (r'/save',service.SyncImageHandler),
+            (r'/saves',service.ImageHandler),
+
 
 
         ]

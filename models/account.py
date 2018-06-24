@@ -67,5 +67,17 @@ class Post(Base):
 
 
 
+
+class Like(Base):
+    '''增加用户关注的图片列表'''
+    __tablename__ = 'likes'
+
+    post_id =  Column(Integer,ForeignKey('posts.id'),nullable=False,primary_key=True)
+    user_id = Column(Integer,ForeignKey('users.id'),nullable=False,primary_key=True)
+
+
+
+
+
 if __name__ == '__main__':
     Base.metadata.create_all()

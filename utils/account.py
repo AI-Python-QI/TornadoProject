@@ -53,7 +53,7 @@ def add_post_for(username, image_url, thumb_url):
     post = Post(image_url=image_url, user=user, thumb_url=thumb_url)
     session.add(post)
     session.commit()
-    return post.id
+    return post
 
 
 def get_post_for(username):

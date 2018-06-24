@@ -31,10 +31,11 @@ def get_images(path):
 class ImageSave(object):
     upload_dir = 'upload/images'
     thumb_dir = 'thumb_images'
-    size = (200, 200)
+    size = (800, 800)
 
     def __init__(self, static_path, old_name):
         '''
+        此处是 初始化 的操作，调用的时候必须传入两个参数
         记录保存图片的路径
         :param static_path: app settings static_path (图片保存服务器的路径)
         :param name: 图片名字

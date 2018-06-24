@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>{% block title %}Tornado{% end %}</title>
     <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-    <script src="https://cdn.bootcss.com/popper.js/1.14.3/esm/popper.js"></script>
 
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+{#    <script src="https://cdn.bootcss.com/popper.js/1.14.3/esm/popper.js"></script>#}
+    <script src="https://cdn.bootcss.com/popper.js/1.14.3/esm/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.js"></script>
    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         *{
@@ -45,9 +48,32 @@
         <a class="nav-link" href="/mysave"><i class="fa fa-cloud"></i>&nbsp收藏</a>
       </li>
 
-          <li class="nav-item">
-        <a class="nav-link" href="/signup"> <i class="fa fa-qq"></i>&nbsp注册</a>
-      </li>
+
+        &nbsp &nbsp &nbsp &nbsp   &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp   &nbsp &nbsp &nbsp &nbsp
+
+        &nbsp &nbsp &nbsp &nbsp   &nbsp &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp &nbsp   &nbsp &nbsp &nbsp &nbsp
+
+
+            <!-- Example split danger button -->
+    <div class="btn-group">
+      <button type="button" class="btn btn-second"><i class="fa fa-apple"></i>&nbsp &nbsp用户中心</button>
+      <button type="button" class="btn btn-second dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="https://mail.qq.com"><i class="fa fa-envelope"></i>&nbspQQ邮箱</a>
+        <a class="dropdown-item" href="/room"><i class="fa fa-comment"></i>&nbspChat</a>
+        <a class="dropdown-item" href="/signup"><i class="fa fa-qq"></i>&nbsp注册</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/"><i class="fa fa-lock"></i>&nbsp网络壁纸收藏</a>
+      </div>
+    </div>
+        &nbsp &nbsp
+
+
+
+
 
 
 
@@ -80,6 +106,7 @@
                     {% block content %}I am  base.html{% end %}
                 </div>
 </div>
-
+{% block extra_scripts %}
+{% end %}
 </body>
 </html>
