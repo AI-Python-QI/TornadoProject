@@ -8,7 +8,19 @@
             <img src="{{ static_url(post.image_url) }}" width="1110" >
             <h7>上传用户：{{ post.user.name }}   上传时间：{{ post.created or None }}</h7>
 
-            </div>
+            {% if users %}
+            <h5><i class="fa fa-heart text-danger"></i>
+                {% for u in users %}
+                <i class="fa fa-user-circle-o"></i>{{ u.name }}
+                {% end %}
+
+            </h5>
+
+
+            {% end %}
+
+
+        </div>
 
 
 

@@ -25,6 +25,7 @@ class Application(tornado.web.Application):
             (r'/ws',chat.ChatSocketHandler),
             (r'/save',service.SyncImageHandler),
             (r'/saves',service.ImageHandler),
+            (r'/file',main.ProfileHandler),
 
 
 

@@ -2,7 +2,7 @@ import hashlib
 from datetime import datetime
 
 
-from models.account import User,session,Post
+from models.account import User,session,Post,Like
 
 
 
@@ -91,3 +91,31 @@ def get_ten_posts():
 
     posts = session.query(Post).order_by(Post.id.desc()).limit(12)
     return posts
+
+def add_like(user,post):
+    '''添加喜欢的图片'''
+    like = Like(user_id = user.id ,post_id=post.id)
+    session.add(like)
+    session.commit()
+
+def get_like_users(post):
+    '''得到喜欢的用户名 图片有哪些用户喜欢'''
+    users = session.query(User).filter(Like.post_id==post.id,Like.user_id==User.id).all()
+    return users
+def get_like_posts(user):
+    '''得到用户图片id 查询用户喜欢的图片'''
+    posts = session.query(Post).filter(Like.user_id==user.id,
+                                       Like.post_id==Post.id,
+                                       Post.user_id!=user.id).all()
+    return posts
+def get_user(username):
+    '''得到用户的用户'''
+    user = session.query(User).filter_by(name = username).first()
+    return user
+def get_count_like(post):
+    '''拿一下数据个数，不涉及到整个查询，只是返回数据个数，例如，喜欢图片人的个数'''
+    return  session.query(Post).filter(Like.post_id==post.id,Like.user_id==User.id).count()
+
+
+
+

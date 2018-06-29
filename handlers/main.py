@@ -3,7 +3,7 @@ import os
 from pycket.session import SessionMixin
 
 from utils import photo
-from utils.account import add_post_for,get_post_for,get_all_posts,get_post
+from utils.account import add_post_for,get_post_for,get_all_posts,get_post,get_user,get_like_posts,get_like_users,get_count_like
 
 
 
@@ -55,7 +55,9 @@ class PostHandler(AuthBaseHandler):
         #self.render('post.html',post_id=post_id)
     def get(self,post_id):
         post = get_post(int(post_id))
-        self.render('post.html',post=post)# 为什么这么定义呢？因为 post_id 已经传入到了 post.html了 向网页内传递变量的方式
+        like_users = get_like_users(post)#拿到喜欢这张图片的用户
+        like_user = get_count_like(post)#拿到喜欢这张图片用户的数量
+        self.render('post.html',post=post,users=like_users)# 为什么这么定义呢？因为 post_id 已经传入到了 post.html了 向网页内传递变量的方式
 
 
 class UploadHandler(AuthBaseHandler):
@@ -81,6 +83,18 @@ class UploadHandler(AuthBaseHandler):
         # self.write({'msg':'got file :{}'.format(img_files[0]['filename'])})
         self.write('恭喜您，完成提交！')
         self.redirect('explore')
+
+
+class ProfileHandler(AuthBaseHandler):
+    '''
+    显示用户上传的图片和喜欢的图片
+    '''
+    @tornado.web.authenticated
+    def get(self):
+        user = get_user(self.current_user)
+        like_posts = get_like_posts(user)
+        self.render('profile.html',user=user,like_posts=like_posts)
+
 
 
 

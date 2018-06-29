@@ -74,10 +74,17 @@ class Like(Base):
 
     post_id =  Column(Integer,ForeignKey('posts.id'),nullable=False,primary_key=True)
     user_id = Column(Integer,ForeignKey('users.id'),nullable=False,primary_key=True)
-
-
-
-
+#     @classmethod
+#     def add_likes(cls,post_id,user_id):
+#         '''往likes数据库 进行添加喜欢的图片的记录
+#             做一个提交的表单进行添加记录 简化版：通过命令进行添加删除
+#             做一个删除的表单进行删除的记录
+#
+#         '''
+#         likes = cls(post_id=post_id, user_id=user_id)
+#         session.add(likes)
+#         session.commit()
+# Like.add_likes(post_id=9,user_id=9)
 
 if __name__ == '__main__':
     Base.metadata.create_all()
