@@ -1,5 +1,9 @@
 <div class="message" id ='m{{ message['id'] }}'>
-    {% module linkify(message['body']) %}
+    {% module linkify(message['body']) %} --{{ message['sent_by'] }}
+    {% if message['img'] %}
+    <br>
+    <img src="{{ static_url(message['img']) }}" width="200">
+    {% end %}
 
 
 </div>

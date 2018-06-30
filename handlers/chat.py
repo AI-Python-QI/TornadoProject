@@ -6,6 +6,7 @@ import tornado.web
 import tornado.websocket
 import uuid
 
+from pycket.session import SessionMixin
 from .main import AuthBaseHandler
 
 
@@ -14,14 +15,18 @@ class RoomHandler(AuthBaseHandler):
     聊天室界面
 
     '''
+    @tornado.web.authenticated
     def  get(self):
         self.render('room.html',messages = ChatSocketHandler.cache)
 
-class ChatSocketHandler(tornado.websocket.WebSocketHandler):
+class ChatSocketHandler(tornado.websocket.WebSocketHandler, SessionMixin):
     '''注意此处的继承'''
     waiters = set()#集合 等待接收信息的用户
     cache = []# 存放信息的列表
     cache_size = 200  #存放信息的个数
+
+    def get_current_user(self):
+        return self.session.get('tudo_user_info',None)
 
     def get_compression_options(self):
         '''非None的返回值开启压缩  此处为重写覆盖 但是会自动调用'''
@@ -57,17 +62,41 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         '''websocket 服务器端接收的信息 '''
         logging.info('got messages %r',message)
         parsed = tornado.escape.json_decode(message)#解码
-        chat = {
-                'id':str(uuid.uuid4()),
-                'body':parsed['body'],
-        }
-        chat['html']=tornado.escape.to_basestring(self.render_string('message.html',message=chat))
 
+        '''以下部分是增加发送图片的功能'''
+        if not parsed['body']:
+            return
 
+        if parsed['body'].startswith('http://'):
+            img_url = 'http://192.168.31.128:8080/saves?url={}&from=room&user={}'\
+                .format(parsed['body'],self.current_user)
+            from tornado.httpclient import AsyncHTTPClient
+            from tornado.ioloop import IOLoop
+            c = AsyncHTTPClient()
+            IOLoop.current().spawn_callback(c.fetch,img_url)#放到后台运行
 
-        ChatSocketHandler.update_cache(chat)#这样子写才可以访问到全局的
-                                            #每个实例都有一个自己的
-        ChatSocketHandler.send_updates(chat)
+            chat = {
+                'id' : str(uuid.uuid4()),
+                'sent_by':'admin',
+                'body': 'hi{},url is processing:{}'.format(self.current_user,parsed['body']),
+                'img' : None,
+            }
+
+            chat['html'] = tornado.escape.to_basestring(self.render_string('message.html', message=chat))
+
+            self.write_message(chat)
+
+        else:
+            chat = {
+                    'id':str(uuid.uuid4()),
+                    'sent_by':self.current_user,
+                    'body':parsed['body'],
+                    'img':None
+            }
+            chat['html']=tornado.escape.to_basestring(self.render_string('message.html',message=chat))
+
+            ChatSocketHandler.update_cache(chat)#这样子写才可以访问到全局的  #每个实例都有一个自己的
+            ChatSocketHandler.send_updates(chat)
 
 
 
